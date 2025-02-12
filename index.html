@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>RegenBox Firmware Updater</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+        <link rel="icon" href="assets/favicon.ico" />
+        <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.js"></script>
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1 style="position: absolute; width: 40vw; text-align: left; color: white; margin: 20px;">
+            Mise à jour de la RegenBox 2
+        </h1>
+        <div id="safariErr">
+            <h3 align="center">
+                Veuillez ouvrir cette page sur Google Chrome sur ordinateur pour mettre à jour votre RegenBox.
+                <br>
+            </h3>
+            <p>Fonctionne sur MacOS, Windows et Linux.</p>
+        </div>
+
+        <div class="container" id="main">
+            <img id="cable" src="assets/regenbox-cable.svg"></img>
+
+            <div id="plug" class="step">
+                <p class="step-id">1</p>
+                <p class="step-txt">Branchez la RegenBox 2 à votre ordinateur.</p>
+                <br>
+            </div>
+
+            <div id="connect" class="step">
+                <p class="step-id">2</p>
+                <p class="step-txt">Cliquez ici pour connecter la RegenBox 2.</p>
+                <p class="step-under">Choisissez le port série qui vient d'apparaître</p>
+            </div>
+
+            <div id="programButton" class="step disabled">
+                <p class="step-id">3</p>
+                <p class="step-txt">Cliquez ici pour mettre à jour le logiciel.</p>
+                <br>
+            </div>
+
+            <img id="regenbox" src="assets/regenbox.svg"></img>
+
+            <div id="progress">
+                <progress id="progressBar" style="display:none;" value="0" max="100"></progress>
+                <div id="infos" style="display:none;">llala</div>
+                <div id="infos2" style="display: none; color: black;" >...</div>
+            </div>
+
+        </div>
+
+        <div style="position: absolute; bottom: 0; left: 50%; transform: translate(-50%, 0); margin-bottom: 10px;">
+            <p style="color: rgb(150, 150, 150); font-size: 12px;">Page de mise à jour RegenBox © 2025 RegenBox</p>
+        </div>
+
+        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; right: 0; bottom: 0; padding: 20px;">
+            <p></p>
+            <div style="width: 50px; height: 50px;">
+                <a href="https://www.regenbox.org" target="_self">
+                    <svg preserveAspectRatio="xMidYMid meet" data-bbox="41.92 37.43 257.7 257.7" viewBox="41.92 37.43 257.7 257.7" xmlns="http://www.w3.org/2000/svg" data-type="color" role="presentation" aria-hidden="true">
+                        <g>
+                            <path fill="#ffffff" d="M299.62 166.28c0 71.162-57.688 128.85-128.85 128.85-71.162 0-128.85-57.688-128.85-128.85 0-71.162 57.688-128.85 128.85-128.85 71.162 0 128.85 57.688 128.85 128.85z" data-color="1"></path>
+                            <path d="M234.79 181.78h-94l-9.9-9.9 9.89-9.89h86.58c1.37 0 2.47-1.11 2.47-2.47v-24.74c0-1.37-1.11-2.47-2.47-2.47h-27.21l9.89-9.89-9.89-9.89h34.63c3.94 0 7.71 1.56 10.5 4.35s4.35 6.56 4.35 10.5v5.33c0 2 1.62 3.61 3.61 3.61h.72c1.6 0 2.89 1.29 2.89 2.89v15.9c0 1.6-1.3 2.89-2.89 2.89h-.73c-1.99 0-3.61 1.62-3.61 3.61v5.33c0 3.93-1.56 7.71-4.35 10.49a14.859 14.859 0 0 1-10.5 4.35Z" fill="#000000" data-color="2"></path>
+                            <path d="M96.27 181.78c-3.93 0-7.71-1.56-10.49-4.35a14.853 14.853 0 0 1-4.35-10.49v-39.58c0-3.94 1.56-7.71 4.35-10.49 2.78-2.78 6.56-4.35 10.5-4.35h94l9.9 9.9-9.9 9.9H103.7c-1.37 0-2.48 1.11-2.47 2.47v24.74c0 1.37 1.11 2.47 2.47 2.47h27.21l-9.89 9.89c3.3 3.3 6.6 6.6 9.89 9.9H96.28Z" fill="#000000" data-color="2"></path>
+                            <path d="M91.12 196.66c1.45 0 2.74.15 3.89.46 1.14.31 2.11.77 2.91 1.38.8.62 1.42 1.4 1.84 2.35.43.96.64 2.07.64 3.34 0 1.65-.34 3.01-1.02 4.1s-1.65 1.92-2.9 2.49l4.08 7.84c.07.13.1.25.1.36 0 .2-.07.37-.21.51-.14.14-.31.21-.51.21h-4.48c-.44 0-.75-.1-.94-.3-.19-.2-.34-.39-.44-.59l-3.66-7.05h-3.03v7.05c0 .24-.09.45-.26.63-.18.18-.38.26-.63.26h-4.31c-.24 0-.45-.09-.63-.26a.838.838 0 0 1-.26-.63v-21.27c0-.24.09-.45.26-.63.18-.18.38-.26.63-.26h8.92Zm-3.72 9.98h3.72c.92 0 1.69-.18 2.29-.53.6-.35.91-.99.91-1.91s-.3-1.56-.91-1.91c-.6-.35-1.37-.53-2.29-.53H87.4v4.87Z" fill="#000000" data-color="2"></path>
+                            <path d="M120.7 214.44c.24 0 .45.09.63.26.18.18.26.38.26.63v3.49c0 .24-.09.45-.26.63-.18.18-.38.26-.63.26h-15.61c-.24 0-.45-.09-.63-.26a.838.838 0 0 1-.26-.63v-21.27c0-.24.09-.45.26-.63.18-.18.38-.26.63-.26h15.35c.24 0 .45.09.63.26.18.18.26.38.26.63v3.49c0 .24-.09.45-.26.63-.18.18-.38.26-.63.26H110.3v3.56h9.42c.24 0 .45.09.63.26.18.18.26.38.26.63v3.49c0 .24-.09.45-.26.63s-.38.26-.63.26h-9.42v3.69h10.41Z" fill="#000000" data-color="2"></path>
+                            <path d="M134.6 201.6c-.75 0-1.37.1-1.88.31-.51.21-.92.49-1.24.84-.32.35-.55.76-.71 1.22s-.26.94-.33 1.45c-.04.29-.07.68-.08 1.19-.01.51-.02 1.03-.02 1.56s.01 1.07.03 1.58c.02.52.04.92.07 1.2.04.51.15.99.31 1.45.16.46.41.87.72 1.22s.74.63 1.25.84c.52.21 1.14.31 1.86.31.57 0 1.11-.07 1.61-.2s.94-.34 1.32-.63c.37-.29.67-.66.89-1.12.22-.46.33-1.02.33-1.68h-2.77c-.24 0-.45-.09-.63-.26a.838.838 0 0 1-.26-.63v-3.49c0-.24.09-.45.26-.63.18-.18.38-.26.63-.26h7.97c.24 0 .45.09.63.26.18.18.26.38.26.63v4.22c0 1.41-.26 2.67-.79 3.79a8.381 8.381 0 0 1-2.17 2.85c-.92.78-2 1.38-3.24 1.79-1.24.42-2.59.63-4.03.63-1.58 0-2.99-.24-4.23-.71-1.24-.47-2.3-1.11-3.18-1.93a8.45 8.45 0 0 1-2.03-2.85c-.47-1.09-.74-2.23-.81-3.44-.04-.9-.07-1.87-.07-2.9s.02-2.02.07-2.96c.04-1.21.31-2.35.79-3.44a8.59 8.59 0 0 1 2.03-2.85c.87-.81 1.93-1.45 3.18-1.93 1.25-.47 2.67-.71 4.25-.71s2.92.23 4.15.67c1.23.45 2.27 1.02 3.13 1.71.86.69 1.53 1.45 2.01 2.27.48.82.75 1.61.79 2.35.02.2-.04.37-.2.51-.15.14-.33.21-.53.21h-4.38c-.33 0-.59-.1-.77-.3-.19-.2-.37-.4-.54-.59-.31-.4-.72-.76-1.25-1.09-.53-.33-1.33-.49-2.4-.49Z" fill="#000000" data-color="2"></path>
+                            <path d="M165.06 214.44c.24 0 .45.09.63.26.18.18.26.38.26.63v3.49c0 .24-.09.45-.26.63-.18.18-.38.26-.63.26h-15.61c-.24 0-.45-.09-.63-.26a.838.838 0 0 1-.26-.63v-21.27c0-.24.09-.45.26-.63.18-.18.38-.26.63-.26h15.35c.24 0 .45.09.63.26.18.18.26.38.26.63v3.49c0 .24-.09.45-.26.63-.18.18-.38.26-.63.26h-10.14v3.56h9.42c.24 0 .45.09.63.26.18.18.26.38.26.63v3.49c0 .24-.09.45-.26.63s-.38.26-.63.26h-9.42v3.69h10.41Z" fill="#000000" data-color="2"></path>
+                            <path d="M184.72 219.71c-.37 0-.67-.1-.91-.3-.23-.2-.38-.35-.44-.46l-7.54-11.26v11.13c0 .24-.09.45-.26.63-.18.18-.38.26-.63.26h-4.31c-.24 0-.45-.09-.63-.26a.838.838 0 0 1-.26-.63v-21.27c0-.24.09-.45.26-.63.18-.18.38-.26.63-.26h3.43c.37 0 .68.1.91.3.23.2.38.35.44.46l7.54 11.26v-11.13c0-.24.09-.45.26-.63.18-.18.38-.26.63-.26h4.31c.24 0 .45.09.63.26.18.18.26.38.26.63v21.27c0 .24-.09.45-.26.63s-.38.26-.63.26h-3.43Z" fill="#000000" data-color="2"></path>
+                            <path d="M194.53 219.71c-.24 0-.45-.09-.63-.26a.838.838 0 0 1-.26-.63v-21.27c0-.24.09-.45.26-.63.18-.18.38-.26.63-.26h10.6c1.47 0 2.71.2 3.72.61 1.01.41 1.82.93 2.42 1.58.6.65 1.04 1.38 1.3 2.21.26.82.39 1.64.39 2.45 0 .64-.07 1.19-.21 1.66-.14.47-.31.88-.51 1.22-.2.34-.4.61-.61.82-.21.21-.38.37-.51.48.86.59 1.45 1.28 1.79 2.06.34.78.51 1.72.51 2.82 0 .9-.13 1.78-.4 2.63-.26.86-.7 1.62-1.3 2.29-.6.67-1.39 1.21-2.35 1.61-.97.41-2.15.61-3.56.61h-11.3Zm12.32-16.07c0-.57-.17-1.03-.51-1.37-.34-.34-.84-.51-1.5-.51h-5.1v3.75h5.1c.66 0 1.16-.17 1.5-.51.34-.34.51-.8.51-1.37Zm-7.11 10.97h5.43c.66 0 1.19-.19 1.58-.58.4-.38.59-.86.59-1.43s-.2-1.05-.59-1.43c-.39-.38-.92-.58-1.58-.58h-5.43v4.02Z" fill="#000000" data-color="2"></path>
+                            <path d="M216.34 205.25c.07-1.23.33-2.39.81-3.47a8.222 8.222 0 0 1 2.01-2.83c.87-.8 1.92-1.44 3.16-1.91 1.24-.47 2.67-.71 4.3-.71s3.03.24 4.28.71c1.25.47 2.31 1.11 3.18 1.91.87.8 1.54 1.75 2.01 2.83.47 1.09.74 2.25.81 3.47.04.94.07 1.93.07 2.96s-.02 2-.07 2.9c-.07 1.23-.34 2.39-.81 3.47a8.395 8.395 0 0 1-2.01 2.85c-.87.81-1.93 1.45-3.18 1.91-1.25.46-2.68.69-4.28.69s-3.06-.23-4.3-.69c-1.24-.46-2.29-1.1-3.16-1.91a8.395 8.395 0 0 1-2.01-2.85c-.47-1.09-.74-2.24-.81-3.47-.04-.9-.07-1.87-.07-2.9s.02-2.02.07-2.96Zm14.46 5.7c.02-.4.04-.83.07-1.32a35.804 35.804 0 0 0 0-2.95c-.02-.47-.04-.89-.07-1.27a4.84 4.84 0 0 0-.35-1.51c-.19-.46-.45-.86-.79-1.2-.34-.34-.76-.61-1.27-.81-.51-.2-1.1-.3-1.78-.3s-1.27.1-1.78.3c-.51.2-.93.47-1.27.81-.34.34-.6.74-.79 1.2-.19.46-.3.97-.35 1.51-.04.37-.07.8-.08 1.27-.01.47-.02.96-.02 1.47s0 1 .02 1.48c.01.48.04.92.08 1.32.09 1.1.47 2.01 1.14 2.73.67.72 1.69 1.09 3.05 1.09s2.37-.36 3.03-1.09c.66-.72 1.04-1.64 1.15-2.73Z" fill="#000000" data-color="2"></path>
+                            <path d="m248.91 213.02-4.22 5.93c-.13.2-.28.37-.44.53-.16.15-.47.23-.91.23h-5.01c-.2 0-.37-.07-.51-.21a.694.694 0 0 1-.21-.51c0-.04 0-.09.02-.15.01-.05.04-.13.08-.21l7.61-10.64-7.28-10.24a.757.757 0 0 1-.1-.36c0-.2.07-.37.21-.51.14-.14.31-.21.51-.21h4.97c.44 0 .76.11.95.33.2.22.34.38.43.49l3.99 5.57 3.85-5.57c.09-.11.23-.27.43-.49.2-.22.52-.33.96-.33h5.04c.2 0 .37.07.51.21.14.14.21.31.21.51 0 .11-.03.23-.1.36l-7.31 10.37 7.54 10.51c.04.09.07.16.08.21.01.06.02.1.02.15 0 .2-.07.37-.21.51-.14.14-.31.21-.51.21h-5.01c-.44 0-.74-.08-.91-.23-.16-.15-.31-.33-.44-.53l-4.25-5.93Z" fill="#000000" data-color="2"></path>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        
+        
+        <script type="module">
+            import { ESPLoader, Transport } from "https://unpkg.com/esptool-js@0.5.0/bundle.js";
+
+            const connectButton = document.getElementById("connect");
+            const programButton = document.getElementById("programButton");
+            const fileUpload = document.getElementById("selectFile1");
+            const progressBar = document.getElementById("progressBar");
+            const infos = document.getElementById("infos");
+            const infos2 = document.getElementById("infos2");
+            const cable = document.getElementById("cable");
+
+            if (navigator.userAgent.indexOf("Safari") != -1 && navigator.userAgent.indexOf("Chrome") == -1) {
+                document.getElementById("main").style.display = "none";
+                document.getElementById("safariErr").style.display = "flex";
+            }
+
+            const TIMEOUT_MS = 5000;
+
+            let dotsAnim;
+            let dots = "";
+
+            let device = null;
+            let transport;
+            let chip = null;
+            let esploader;
+            const baudRate = 9600;
+
+            let firmwareData = { target: { files: null } };
+
+            const fileUrl = "https://leohuet.github.io/regenBoxUpdater/firmware/Regenv2_v2.ino.merged.bin";
+            const firmwareFolder = "https://api.github.com/repos/leohuet/regenBoxUpdater/contents/firmware";
+
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            connectButton.onclick = async ()=>{
+                infos.style.color = "white";
+                infos2.style.color = "black";
+                infos2.innerHTML = "...";
+                try {
+                    if (device === null) {
+                        console.log(navigator.serial.getPorts());
+                        device = await navigator.serial.requestPort({});
+                        transport = new Transport(device, true);
+                    }
+
+                    dotsAnim = setInterval(() => {
+                        dots = (dots + 1) % 4;
+                        infos.innerHTML = "Connection avec la RegenBox en cours" + ".".repeat(dots);
+                    }, 500);
+                    infos.style.display = "block";
+                    infos2.style.display = "block";
+
+                    const flashOptions = {
+                        transport,
+                        baudrate: 9600,
+                        debugLogging: false
+                    };
+                    esploader = new ESPLoader(flashOptions);
+                    chip = await Promise.race([
+                        esploader.main(),
+                        new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout: Aucun périphérique détecté")), TIMEOUT_MS))
+                    ]);
+                } catch (e) {
+                    console.error(e);
+                    clearInterval(dotsAnim);
+                    infos.innerHTML = "Erreur de connexion. Veuillez réessayer.";
+                    infos2.innerHTML = "Si l'erreur persiste, sélectionnez un autre port série.";
+                    infos.style.color = "red";
+                    infos2.style.color = "red";
+                    transport.disconnect();
+                    device = null;
+                    chip = null;
+                    return;
+                }
+                finally {
+                    if(infos.innerHTML !== "Erreur de connexion. Veuillez réessayer."){
+                        clearInterval(dotsAnim);
+                        infos.innerHTML = "Connection établie !";
+                        infos.style.color = "yellowgreen";
+                        cable.classList.add("plugged");
+                    }
+                }
+
+                await sleep(1000);
+
+                try {
+                    dots = "";
+                    dotsAnim = setInterval(() => {
+                        dots = (dots + 1) % 4;
+                        infos2.innerHTML = "Récupération du fichier de mise à jour" + ".".repeat(dots);
+                    }, 500);
+                    infos2.style.color = "white";
+                    const firmwareCheck = await fetchFirmware();
+                    await sleep(1000);
+                    clearInterval(dotsAnim);
+                    if(!firmwareCheck) return;
+                    else infos2.innerHTML = "Fichier de mise à jour récupéré avec succès !";
+                }
+                catch(erorr){
+                    console.error(error);
+                    infos2.style.color = "red";
+                    infos2.innerHTML = "Erreur lors du téléchargement du logiciel. Veuillez recharger la page et essayer à nouveau.";
+                }
+                finally{
+                    programButton.classList.remove("disabled");
+                    programButton.classList.add("enabled");
+                }
+            };
+
+            async function fetchFirmware() {
+                let firmwareBlob = null;
+                try {
+                    const response = await fetch(firmwareFolder);
+                    const files = await response.json();
+                    files.sort((a, b) => b.name.localeCompare(a.name));
+                    const latestFirmware = files[0];
+                    console.log("Latest firmware file:", latestFirmware.name);
+
+                    const response2 = await fetch(latestFirmware.download_url);
+                    firmwareBlob = await response2.blob();
+                } catch (error) {
+                    console.error(error);
+                    infos.style.color = "red";
+                    infos.innerHTML = "Erreur lors du téléchargement du logiciel. Veuillez recharger la page et essayer à nouveau.";
+                    return false;
+                }
+                const firmwareFile = new File([firmwareBlob], "firmware.bin", { type: "application/macbinary" });
+                firmwareData.target.files = [firmwareFile];
+                await handleFileSelect(firmwareData);
+                return true;
+            }
+
+            function handleFileSelect(evt) {
+                const file = evt.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (ev)=>{
+                    firmwareData.target.data = ev.target.result;
+                };
+                reader.readAsBinaryString(file);
+                console.log(firmwareData);
+            }
+
+            programButton.onclick = async ()=>{
+                if (programButton.classList.contains("disabled")) return;
+                const fileArray = [];
+                const offset = 0x0;
+                progressBar.style.display = "block";
+                progressBar.textContent = "0";
+                infos.style.color = "white";
+                infos2.style.color = "black";
+
+                fileArray.push({
+                    data: firmwareData.target.data,
+                    address: offset
+                });
+
+                dots = "";
+                dotsAnim = setInterval(() => {
+                    dots = (dots + 1) % 4;
+                    infos.innerHTML = "Programmation en cours" + ".".repeat(dots);
+                }, 500);
+                infos2.innerHTML = "Veuillez ne pas débrancher la RegenBox.";
+                infos2.style.color = "white";
+
+                try {
+                    const flashOptions = {
+                        fileArray: fileArray,
+                        flashSize: "keep",
+                        eraseAll: false,
+                        compress: true,
+                        reportProgress: (fileIndex, written, total)=>{
+                            progressBar.value = written / total * 100;
+                        },
+                        calculateMD5Hash: (image)=>CryptoJS.MD5(CryptoJS.enc.Latin1.parse(image))
+                    };
+                    await esploader.writeFlash(flashOptions);
+                    // await esploader.after();
+                } catch (e) {
+                    console.error(e);
+                    clearInterval(dotsAnim);
+                    infos2.style.color = "black";
+                    infos.style.color = "red";
+                    infos.innerHTML = "Erreur lors de la programmation.";
+                } finally{
+                    progressBar.style.display = "none";
+                    if(infos.style.color != "red"){
+                        clearInterval(dotsAnim);
+                        infos2.style.color = "black";
+                        infos.style.color = "yellowgreen";
+                        infos.innerHTML = "Programmation terminée avec succès. Vous pouvez débrancher la RegenBox.";
+                        infos2.innerHTML = "Bonne régénération !";
+                        infos2.style.color = "yellowgreen";
+                    }
+                }
+            };
+
+        </script>
+    </body>
+</html>
