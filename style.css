@@ -185,11 +185,11 @@ progress::-moz-progress-bar {
 @media screen and (min-width: 1000px) and (min-height: 1000px){ 
     #regenbox {
         width: 40vh;
-        bottom: 40%;
+        bottom: 20%;
     }
 
     #cable.plugged {
-        top: calc(clamp(-300px, 12%, 165px) * 5 - 560px);
+        top: calc(clamp(115px, 22%, 250px) - 80px);
     }
 
     #progress {
