@@ -265,11 +265,19 @@
                 } catch (e) {
                     console.error(e);
                     clearInterval(dotsAnim);
+
+                    postData("https://backend.regenbox.fr/v1/regen-station/update/log", {status: false}).then((d) => {
+                        console.log(d); 
+                    });
+
                     infos2.style.color = "black";
                     infos.style.color = "red";
                     infos.innerHTML = "Erreur lors de la programmation.";
                 } finally{
                     progressBar.style.display = "none";
+                    postData("https://backend.regenbox.fr/v1/regen-station/update/log", {status: true}).then((d) => {
+                        console.log(d); 
+                    });
                     if(infos.style.color != "red"){
                         clearInterval(dotsAnim);
                         infos2.style.color = "black";
@@ -280,6 +288,20 @@
                     }
                 }
             };
+
+            async function postData(url = "", postData = {}) {
+                const response = await fetch(url, {
+                    method: "POST",
+                    mode: "cors", // no-cors, *cors, same-origin
+                    cache: "no-cache",
+                    credentials: "same-origin", // include, *same-origin, omit
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(postData), 
+                });
+                return response.json(); // transforme la réponse JSON reçue en objet JavaScript natif
+            }
 
         </script>
     </body>
