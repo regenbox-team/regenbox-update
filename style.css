@@ -84,6 +84,17 @@ p {
     right: 0%;
 }
 
+#plug:hover {
+    background-color: #d6803a;
+    border: 2px solid #d6803a;
+}
+
+/* Texte de #plug légèrement plus petit au survol */
+#plug:hover .step-txt {
+    font-size: clamp(12px, 1.2vw, 12px);
+}
+
+
 #connect {
     display: flex;
     position: absolute;

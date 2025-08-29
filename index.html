@@ -93,6 +93,9 @@
             const infos = document.getElementById("infos");
             const infos2 = document.getElementById("infos2");
             const cable = document.getElementById("cable");
+            const plug = document.getElementById("plug");
+            const plugText = plug?.querySelector(".step-txt");
+            const originalPlugText = plugText?.textContent || "";
 
             if (navigator.userAgent.indexOf("Safari") != -1 && navigator.userAgent.indexOf("Chrome") == -1) {
                 document.getElementById("main").style.display = "none";
@@ -116,6 +119,16 @@
 
             function sleep(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            // Change #plug text on hover, restore on leave
+            if (plug && plugText) {
+                plug.addEventListener("mouseenter", () => {
+                    plugText.textContent = "Attention, certains câbles usb ne permettent pas la connexion. Si vous n'arrivez pas à connecter, essayez avec un autre câble.";
+                });
+                plug.addEventListener("mouseleave", () => {
+                    plugText.textContent = originalPlugText;
+                });
             }
 
             connectButton.onclick = async ()=>{
